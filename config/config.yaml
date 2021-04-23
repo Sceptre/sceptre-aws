@@ -1,0 +1,4 @@
+project_code: sceptre-aws
+profile: {{ var.profile | default("default") }}
+region: {{ var.region | default("us-east-1") }}
+template_key_prefix: {{ environment_variable.CIRCLE_BRANCH | default("testing") }}
