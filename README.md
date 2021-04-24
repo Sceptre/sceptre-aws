@@ -13,12 +13,12 @@ process.
 
 ## Testing
 As a pre-deployment step we syntatically validate our sceptre and
-cloudformation yaml files with [pre-commit](https://pre-commit.com).
+CloudFormation YAML files with [pre-commit](https://pre-commit.com).
 
 Please install pre-commit, once installed the file validations will
 automatically run on every commit.  Alternatively you can manually
 execute the validations by running `pre-commit run --all-files`.
 
 ## Continuous Integration
-We have setup CI to deploy cloudformation template in this project on
+We have setup CI to deploy CloudFormation template in this project on
 mergees to master.
