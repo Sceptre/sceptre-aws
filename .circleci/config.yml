@@ -4,6 +4,7 @@ orbs:
   aws-cli: circleci/aws-cli@2.0
 jobs:
   lint:
+    executor: pre-commit/default
     steps:
       - checkout
       - pre-commit/install
@@ -11,7 +12,8 @@ jobs:
   deploy:
     executor: aws-cli/default
     steps:
-      - checkout
+      - attach_workspace:
+          at: /home/circleci
       - aws-cli/install
       - run:
           name: 'setup aws config'
@@ -21,16 +23,21 @@ jobs:
             echo -e "[default]\nregion=eu-west-1\naws_access_key_id=$CI_SERVICE_AWS_ACCESS_KEY_ID\naws_secret_access_key=$CI_SERVICE_AWS_SECRET_ACCESS_KEY" > ~/.aws/credentials
       - run: sceptre launch -y prod
 workflows:
-  aws-cli:
+  check:
     jobs:
       - lint:
           filters:
             branches:
               only: /^pull\/.*/
+  merge:
+      - lint:
+          filters:
+            branches:
+              only: master
       - deploy:
           context: sceptre-core
           requires:
-            - build
+            - lint
           filters:
             branches:
               only: master
