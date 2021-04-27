@@ -1,3 +1,4 @@
+ignore_checks: [E0000]
 ignore_templates:
   - temp/**/*
   - config/**/*

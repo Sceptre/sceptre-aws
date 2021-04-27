@@ -1,0 +1,36 @@
+version: '2.1'
+orbs:
+  pre-commit: skoblenick/pre-commit@0.2.0
+  aws-cli: circleci/aws-cli@2.0
+jobs:
+  lint:
+    steps:
+      - checkout
+      - pre-commit/install
+      - run: pre-commit run --all-files
+  deploy:
+    executor: aws-cli/default
+    steps:
+      - checkout
+      - aws-cli/install
+      - run:
+          name: 'setup aws config'
+          command: |
+            mkdir -p ~/.aws
+            echo -e "[default]\nregion=eu-west-1\nsource_profile=default\nrole_arn=arn:aws:iam::582448526747:role/bootstrap-ci-service-access-ServiceRole-13M4IKJRFUISQ" > ~/.aws/config
+            echo -e "[default]\nregion=eu-west-1\naws_access_key_id=$CI_SERVICE_AWS_ACCESS_KEY_ID\naws_secret_access_key=$CI_SERVICE_AWS_SECRET_ACCESS_KEY" > ~/.aws/credentials
+      - run: sceptre launch -y prod
+workflows:
+  aws-cli:
+    jobs:
+      - lint:
+          filters:
+            branches:
+              only: /^pull\/.*/
+      - deploy:
+          context: sceptre-core
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
