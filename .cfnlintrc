@@ -1,0 +1,5 @@
+ignore_templates:
+  - temp/**/*
+  - config/**/*
+  - .circleci/**/*
+  - .pre-commit-config.yaml
