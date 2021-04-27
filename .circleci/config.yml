@@ -30,6 +30,7 @@ workflows:
             branches:
               only: /^pull\/.*/
   merge:
+    jobs:
       - lint:
           filters:
             branches:
