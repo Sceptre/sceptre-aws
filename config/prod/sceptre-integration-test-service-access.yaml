@@ -1,0 +1,8 @@
+# Setup a service account for sceptre integration tests
+template_path: service-account.yaml
+stack_name: sceptre-integration-test
+parameters:
+  ManagedPolicyArns:
+    - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
+    - arn:aws:iam::aws:policy/AmazonS3FullAccess
+    - arn:aws:iam::aws:policy/AmazonSNSFullAccess
