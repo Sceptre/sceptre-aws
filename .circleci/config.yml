@@ -12,7 +12,7 @@ jobs:
       - run:
           name: 'Run pre-commit'
           command: |
-            pre-commit run --all-files
+            pre-commit run --all-files --show-diff-on-failure
   deploy:
     docker:
       - image: cimg/python:3.8.9
