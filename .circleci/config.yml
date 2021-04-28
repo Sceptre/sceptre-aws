@@ -47,7 +47,7 @@ workflows:
             branches:
               only: master
       - deploy:
-          context: sceptre-core
+          context: aws.582448526747.ci-service-access
           requires:
             - lint
           filters:
