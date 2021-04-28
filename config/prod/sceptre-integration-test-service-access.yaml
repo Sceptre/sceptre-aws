@@ -26,6 +26,7 @@ parameters:
             "iam:PutRolePolicy",
             "iam:UpdateRole",
             "iam:UpdateRoleDescription",
+            "iam:CreateRole",
             "iam:DeleteRole"
           ],
           "Resource": "*"
