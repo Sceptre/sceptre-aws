@@ -1,16 +1,39 @@
 version: '2.1'
 orbs:
-  pre-commit: skoblenick/pre-commit@0.2.0
   aws-cli: circleci/aws-cli@2.0
 jobs:
-  lint:
-    executor: pre-commit/default
+  build:
+    docker:
+      - image: cloudreach/sceptre-circleci:0.8.0
     steps:
       - checkout
-      - pre-commit/install
-      - run: pre-commit run --all-files
+      - run:
+          name: 'Creating Virtualenv'
+          command: virtualenv venv
+      - run:
+          name: 'Installing Requirements'
+          command: |
+            . ./venv/bin/activate
+            pip install pre-commit
+            pip install awscli
+      - persist_to_workspace:
+          root: /home/circleci
+          paths:
+            - project
+  lint:
+    docker:
+      - image: cloudreach/sceptre-circleci:0.8.0
+    steps:
+      - attach_workspace:
+          at: /home/circleci
+      - run:
+          name: 'Linting'
+          command: |
+            . ./venv/bin/activate
+            pre-commit run --all-files
   deploy:
-    executor: aws-cli/default
+    docker:
+      - image: cloudreach/sceptre-circleci:0.8.0
     steps:
       - attach_workspace:
           at: /home/circleci
