@@ -1,10 +1,8 @@
 version: '2.1'
-orbs:
-  aws-cli: circleci/aws-cli@2.0
 jobs:
   build:
     docker:
-      - image: cloudreach/sceptre-circleci:0.8.0
+      - image: cimg/python:3.8.9
     steps:
       - checkout
       - run:
@@ -15,6 +13,7 @@ jobs:
           command: |
             . ./venv/bin/activate
             pip install pre-commit
+            pip install sceptre
             pip install awscli
       - persist_to_workspace:
           root: /home/circleci
@@ -22,7 +21,7 @@ jobs:
             - project
   lint:
     docker:
-      - image: cloudreach/sceptre-circleci:0.8.0
+      - image: cimg/python:3.8.9
     steps:
       - attach_workspace:
           at: /home/circleci
@@ -33,11 +32,10 @@ jobs:
             pre-commit run --all-files
   deploy:
     docker:
-      - image: cloudreach/sceptre-circleci:0.8.0
+      - image: cimg/python:3.8.9
     steps:
       - attach_workspace:
           at: /home/circleci
-      - aws-cli/install
       - run:
           name: 'setup aws config'
           command: |
@@ -48,13 +46,23 @@ jobs:
 workflows:
   check:
     jobs:
+      - build:
+          filters:
+            branches:
+              only: /^pull\/.*/
       - lint:
           filters:
             branches:
               only: /^pull\/.*/
   merge:
     jobs:
+      - build:
+          filters:
+            branches:
+              only: master
       - lint:
+          requires:
+            - build
           filters:
             branches:
               only: master
