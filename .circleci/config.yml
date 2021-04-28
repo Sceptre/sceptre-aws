@@ -1,68 +1,46 @@
 version: '2.1'
 jobs:
-  build:
-    docker:
-      - image: cimg/python:3.8.9
-    steps:
-      - checkout
-      - run:
-          name: 'Creating Virtualenv'
-          command: virtualenv venv
-      - run:
-          name: 'Installing Requirements'
-          command: |
-            . ./venv/bin/activate
-            pip install pre-commit
-            pip install sceptre
-            pip install awscli
-      - persist_to_workspace:
-          root: /home/circleci
-          paths:
-            - project
   lint:
     docker:
       - image: cimg/python:3.8.9
     steps:
-      - attach_workspace:
-          at: /home/circleci
       - run:
-          name: 'Linting'
+          name: 'Install tools'
           command: |
-            . ./venv/bin/activate
+            pip install pre-commit
+      - run:
+          name: 'Run pre-commit'
+          command: |
             pre-commit run --all-files
   deploy:
     docker:
       - image: cimg/python:3.8.9
     steps:
-      - attach_workspace:
-          at: /home/circleci
       - run:
-          name: 'setup aws config'
+          name: 'Install tools'
+          command: |
+            pip install sceptre
+            pip install awscli
+      - run:
+          name: 'Setup AWS config'
           command: |
             mkdir -p ~/.aws
             echo -e "[default]\nregion=eu-west-1\nsource_profile=default\nrole_arn=arn:aws:iam::582448526747:role/bootstrap-ci-service-access-ServiceRole-13M4IKJRFUISQ" > ~/.aws/config
             echo -e "[default]\nregion=eu-west-1\naws_access_key_id=$CI_SERVICE_AWS_ACCESS_KEY_ID\naws_secret_access_key=$CI_SERVICE_AWS_SECRET_ACCESS_KEY" > ~/.aws/credentials
-      - run: sceptre launch -y prod
+      - run:
+          name: 'Run sceptre'
+          command: |
+            sceptre launch prod --yes
 workflows:
   check:
     jobs:
-      - build:
-          filters:
-            branches:
-              only: /^pull\/.*/
       - lint:
           filters:
             branches:
               only: /^pull\/.*/
   merge:
     jobs:
-      - build:
-          filters:
-            branches:
-              only: master
       - lint:
-          requires:
-            - build
           filters:
             branches:
               only: master
