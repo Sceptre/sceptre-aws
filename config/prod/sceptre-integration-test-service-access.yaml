@@ -7,7 +7,6 @@ parameters:
     - arn:aws:iam::aws:policy/AmazonS3FullAccess
     - arn:aws:iam::aws:policy/AmazonSNSFullAccess
     - arn:aws:iam::aws:policy/AWSLambda_FullAccess
-    - arn:aws:iam::aws:policy/IAMFullAccess
   PolicyDocument: >-
     {
       "Version": "2012-10-17",
