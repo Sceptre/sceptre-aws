@@ -6,3 +6,28 @@ parameters:
     - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
     - arn:aws:iam::aws:policy/AmazonS3FullAccess
     - arn:aws:iam::aws:policy/AmazonSNSFullAccess
+  PolicyDocument: >-
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "iam:ListPolicy",
+            "iam:ListRoles",
+            "iam:AttachRolePolicy",
+            "iam:DeleteRolePolicy",
+            "iam:DetachRolePolicy",
+            "iam:GetRole",
+            "iam:GetRolePolicy",
+            "iam:ListAttachedRolePolicies",
+            "iam:ListRolePolicies",
+            "iam:PutRolePolicy",
+            "iam:UpdateRole",
+            "iam:UpdateRoleDescription",
+            "iam:DeleteRole"
+          ],
+          "Resource": "*"
+        }
+      ]
+    }
