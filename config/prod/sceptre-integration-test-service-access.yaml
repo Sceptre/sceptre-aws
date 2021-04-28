@@ -6,3 +6,16 @@ parameters:
     - arn:aws:iam::aws:policy/AWSCloudFormationFullAccess
     - arn:aws:iam::aws:policy/AmazonS3FullAccess
     - arn:aws:iam::aws:policy/AmazonSNSFullAccess
+  PolicyDocument: >-
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "PublicRead",
+          "Effect": "Allow",
+          "Principal": "*",
+          "Action": [ "sts:AssumeRole" ],
+          "Resource": [ "*" ]
+        }
+      ]
+    }
