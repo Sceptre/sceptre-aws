@@ -27,7 +27,8 @@ parameters:
             "iam:UpdateRole",
             "iam:UpdateRoleDescription",
             "iam:CreateRole",
-            "iam:DeleteRole"
+            "iam:DeleteRole",
+            "sts:AssumeRole"
           ],
           "Resource": "*"
         }
