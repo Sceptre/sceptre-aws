@@ -27,7 +27,7 @@ jobs:
           name: 'Setup AWS config'
           command: |
             mkdir -p ~/.aws
-            echo -e "[default]\nregion=eu-west-1\nsource_profile=default\nrole_arn=arn:aws:iam::582448526747:role/bootstrap-ci-service-access-ServiceRole-13M4IKJRFUISQ" > ~/.aws/config
+            echo -e "[default]\nregion=eu-west-1\nsource_profile=default\nrole_arn=arn:aws:iam::743644221192:role/bootstrap-ci-service-access-ServiceRole-7SWX2A69QW26" > ~/.aws/config
             echo -e "[default]\nregion=eu-west-1\naws_access_key_id=$CI_SERVICE_AWS_ACCESS_KEY_ID\naws_secret_access_key=$CI_SERVICE_AWS_SECRET_ACCESS_KEY" > ~/.aws/credentials
       - run:
           name: 'Run sceptre'
