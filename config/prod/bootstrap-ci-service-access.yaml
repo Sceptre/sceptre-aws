@@ -1,5 +1,0 @@
-template_path: service-account.yaml
-stack_name: bootstrap-ci-service-access
-parameters:
-  ManagedPolicyArns:
-    - arn:aws:iam::aws:policy/AdministratorAccess
