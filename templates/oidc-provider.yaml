@@ -27,4 +27,3 @@ Outputs:
     Value: !Ref Provider
     Export:
       Name: !Sub '${AWS::StackName}-ProviderArn'
-
