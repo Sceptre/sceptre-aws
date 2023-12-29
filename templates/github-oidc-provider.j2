@@ -58,7 +58,7 @@ Parameters:
     Type: Number
     Description: "The IAM role's maximum session duration"
     MaxValue: 43200
-    MinValue: 3600
+    MinValue: 600
     Default: 3600
 
 Conditions:
@@ -96,7 +96,7 @@ Resources:
                 token.actions.githubusercontent.com:aud: !Ref ClientIdList
               StringLike:
                 token.actions.githubusercontent.com:sub: [
-{% for Repository in Repositories %}
+{% for Repository in sceptre_user_data.Repositories %}
   {% for branch in Repository.branches %}
       {% if branch == '*' %}
                   "repo:{{ GitHubOrg}}/{{ Repository.name }}:{{ branch }}",
