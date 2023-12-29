@@ -1,7 +1,8 @@
 {# Allow Github to access AWS without giving github AWS credentials               #}
 {# Must pass in the following templating parameters                               #}
+{#                                                                                #}
 {#parameters:                                                                     #}
-{#  ProviderRoleName: gh-oidc-sage-sceptre-aws                                    #}
+{#  ProviderRoleName: gh-oidc-sceptre-aws                                         #}
 {#  ProviderArn: !stack_output_external github-oidc-provider::ProviderArn         #}
 {#  ManagedPolicyArns:                                                            #}
 {#    - "arn:aws:iam::aws:policy/AdministratorAccess"                             #}
@@ -10,6 +11,13 @@
 {#  Repositories:                                                                 #}
 {#    - name: "sceptre-aws"                                                       #}
 {#      branches: [ "master" ]                                                    #}
+
+{% if sceptre_user_data.Repositories is defined %}
+    {% set Repositories = sceptre_user_data.Repositories %}
+{% endif %}
+{% if sceptre_user_data.GitHubOrg is defined %}
+    {% set GitHubOrg = sceptre_user_data.GitHubOrg %}
+{% endif %}
 
 AWSTemplateFormatVersion: 2010-09-09
 Description: Configure Github OIDC trust to AWS
@@ -96,7 +104,7 @@ Resources:
                 token.actions.githubusercontent.com:aud: !Ref ClientIdList
               StringLike:
                 token.actions.githubusercontent.com:sub: [
-{% for Repository in sceptre_user_data.Repositories %}
+{% for Repository in Repositories %}
   {% for branch in Repository.branches %}
       {% if branch == '*' %}
                   "repo:{{ GitHubOrg}}/{{ Repository.name }}:{{ branch }}",
