@@ -44,7 +44,7 @@ def test_snapshot(
     ) -> None:
 
     context_path = f"tests/fixtures/contexts/{template_file_base_name}.{description}.yaml"
-    expected_path = f"tests/fixtures/expected/{template_file_base_name}.{description}.yaml"
+    expected_path = f"tests/fixtures/snapshots/{template_file_base_name}.{description}.yaml"
 
     with open(context_path, "r", encoding="utf-8") as file_handle:
         context = yaml.safe_load(file_handle)
