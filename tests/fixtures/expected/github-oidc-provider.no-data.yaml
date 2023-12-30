@@ -13,10 +13,6 @@
 
 
 
-    
-
-
-    
 
 
 AWSTemplateFormatVersion: 2010-09-09
@@ -104,14 +100,6 @@ Resources:
                 token.actions.githubusercontent.com:aud: !Ref ClientIdList
               StringLike:
                 token.actions.githubusercontent.com:sub: [
-
-  
-      
-                  "repo:Sceptre/sceptre-aws:ref:refs/heads/master",
-      
-
-                  "repo:Sceptre/sceptre-aws:ref:refs/tags/*",
-                  "repo:Sceptre/sceptre-aws:environment:*",
 
                 ]
 Outputs:

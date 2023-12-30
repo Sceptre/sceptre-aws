@@ -1,5 +1,1 @@
-sceptre_user_data:
-  GitHubOrg: Sceptre
-  Repositories:
-    - name: sceptre-aws
-      branches: [master]
+sceptre_user_data: {}
