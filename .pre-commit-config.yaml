@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/awslabs/git-secrets
-    rev: b9e96b3212fa06aea65964ff0d5cda84ce935f38
+    rev: 5357e18
     hooks:
     - id: git-secrets
       entry: git-secrets
@@ -24,3 +24,7 @@ repos:
     rev: v1.5.4
     hooks:
       - id: remove-tabs
+  - repo: https://github.com/aristanetworks/j2lint.git
+    rev: v1.1.0
+    hooks:
+      - id: j2lint
