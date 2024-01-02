@@ -28,3 +28,4 @@ repos:
     rev: v1.1.0
     hooks:
       - id: j2lint
+        args: [--ignore, jinja-variable-lower-case, --]
