@@ -32,5 +32,5 @@ jobs:
       - name: 'Sceptre Deploy'
         uses: Sceptre/github-ci-action@v2.3.0
         with:
-          sceptre_version: '4.1.0'
+          sceptre_version: '4.3.0'
           sceptre_subcommand: 'launch prod --prune --yes'
