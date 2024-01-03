@@ -1,0 +1,40 @@
+name: "workflow"
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - "*"
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.10
+      - uses: pre-commit/action@v3.0.0
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.ref == 'refs/heads/master' }}
+    needs: [ 'pre-commit' ]
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v4
+      - name: Assume AWS Role
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: eu-west-1
+          role-to-assume: arn:aws:iam::743644221192:role/gh-oidc-sceptre-aws
+          role-session-name: GitHubActions-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ github.run_id }}
+          role-duration-seconds: 1800
+      - name: 'Sceptre Deploy'
+        uses: Sceptre/github-ci-action@v2.3.0
+        with:
+          sceptre_version: '4.3.0'
+          sceptre_subcommand: 'launch prod --prune --yes'

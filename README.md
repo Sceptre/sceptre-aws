@@ -16,7 +16,7 @@ execute the validations by running `pre-commit run --all-files`.
 
 ## Continuous Integration
 We have setup CI to deploy CloudFormation templates in this project
-on mergees to master.
+on merges to master.
 
 ## Workflow
 The workflow to provision AWS resources is done using pull requests.
