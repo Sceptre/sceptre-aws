@@ -1,4 +1,4 @@
-name: "action"
+name: "workflow"
 on:
   push:
     branches:
@@ -30,7 +30,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: eu-west-1
-          role-to-assume: TBD
+          role-to-assume: arn:aws:iam::743644221192:role/gh-oidc-sceptre-aws
           role-session-name: GitHubActions-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ github.run_id }}
           role-duration-seconds: 1800
       - name: 'Sceptre Deploy'

@@ -1,10 +1,8 @@
 template:
   path: github-oidc-provider.j2
 stack_name: gh-oidc-sceptre-aws
-Dependencies:
-  - prod/github-oidc-provider.yaml
 parameters:
-  ProviderRoleName: gh-oidc-sage-sceptre-aws
+  ProviderRoleName: gh-oidc-sceptre-aws
   ProviderArn: !stack_output_external github-oidc-provider::ProviderArn
   ManagedPolicyArns:
     - "arn:aws:iam::aws:policy/AdministratorAccess"
