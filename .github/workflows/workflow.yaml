@@ -22,8 +22,6 @@ jobs:
     steps:
       - name: 'Checkout'
         uses: actions/checkout@v4
-      - name: 'Sceptre Install'
-        run: pip install sceptre
       - name: Assume AWS Role
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -32,4 +30,7 @@ jobs:
           role-session-name: GitHubActions-${{ github.repository_owner }}-${{ github.event.repository.name }}-${{ github.run_id }}
           role-duration-seconds: 1800
       - name: 'Sceptre Deploy'
-        run: sceptre launch prod --prune --yes
+        uses: Sceptre/github-ci-action@v2.3.0
+        with:
+          sceptre_version: '4.1.0'
+          sceptre_subcommand: 'launch prod --prune --yes'
