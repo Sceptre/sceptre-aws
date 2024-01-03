@@ -15,6 +15,11 @@ repos:
     rev: v1.33.0
     hooks:
       - id: yamllint
+  - repo: https://github.com/sirosen/check-jsonschema
+    rev: 0.27.3
+    hooks:
+      - id: check-github-workflows
+      - id: check-github-actions
   - repo: https://github.com/awslabs/cfn-python-lint
     rev: v0.83.7
     hooks:
