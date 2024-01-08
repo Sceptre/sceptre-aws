@@ -36,7 +36,7 @@ parameters:
     - "1c58a3a8518e8759bf075b76b750d4f2df264fcd"
   Url: "https://token.actions.githubusercontent.com"
 ```
-4. Deploy the [github-oidc-provider.j2](templates/github-oidc-provider.j2) to 
+4. Deploy the [github-oidc-provider.j2](templates/github-oidc-provider.j2) to
 allow a Github repository OIDC access the AWS account. For an example view the
 [gh-oidc-sceptre-aws.yaml](config/prod/gh-oidc-sceptre-aws.yaml) file.
 
