@@ -24,7 +24,7 @@ Instructions to bootstrap an AWS account for [GH actions OIDC access].
 
 1. Login to AWS as the root user.
 2. Goto the cloudformation console
-3. Deploy the [oidc-provider.yaml](oidc-provider.yaml) template to setup
+3. Deploy the [oidc-provider.yaml](templates/oidc-provider.yaml) template to setup
 an OIDC provider in the AWS account.  Use the following Sceptre template config
 ```yaml
 template:
