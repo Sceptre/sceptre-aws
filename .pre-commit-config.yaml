@@ -16,12 +16,12 @@ repos:
     hooks:
       - id: yamllint
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 0.31.3
+    rev: 0.32.1
     hooks:
       - id: check-github-workflows
       - id: check-github-actions
   - repo: https://github.com/awslabs/cfn-python-lint
-    rev: v1.32.0
+    rev: v1.32.1
     hooks:
       - id: cfn-python-lint
         files: templates\.(json|yaml|yml)$
