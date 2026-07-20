@@ -12,21 +12,21 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.37.1
+    rev: v1.38.0
     hooks:
       - id: yamllint
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 0.35.0
+    rev: 0.37.4
     hooks:
       - id: check-github-workflows
       - id: check-github-actions
   - repo: https://github.com/awslabs/cfn-python-lint
-    rev: v1.40.4
+    rev: v1.53.1
     hooks:
       - id: cfn-python-lint
         files: templates\.(json|yaml|yml)$
   - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.5.5
+    rev: v1.5.6
     hooks:
       - id: remove-tabs
   - repo: https://github.com/aristanetworks/j2lint.git
